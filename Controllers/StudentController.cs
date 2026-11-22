@@ -15,11 +15,35 @@ public class StudentController : Controller
         _context = context;
     }
 
-    // GET: /Student - list all students.
-    public async Task<IActionResult> Index()
+    // GET: /Student?searchString=ada - list students, optionally filtered.
+    public async Task<IActionResult> Index(string? searchString)
     {
-        var students = await _context.Students.ToListAsync();
-        return View(students);
+        searchString = searchString?.Trim();
+
+        // AsQueryable builds the query without running it; the filter below is
+        // translated to SQL, so only matching rows are loaded from the database.
+        var students = _context.Students.AsQueryable();
+
+        if (!string.IsNullOrEmpty(searchString))
+        {
+            // If the text is a number, also match it against the student ID.
+            // Name matching is case-insensitive because SQL Server's default collation is.
+            if (int.TryParse(searchString, out int id))
+            {
+                students = students.Where(s => s.Id == id
+                    || s.FirstName.Contains(searchString)
+                    || s.Surname.Contains(searchString));
+            }
+            else
+            {
+                students = students.Where(s => s.FirstName.Contains(searchString)
+                    || s.Surname.Contains(searchString));
+            }
+        }
+
+        // Send the term back so the view can keep it in the search box.
+        ViewData["SearchString"] = searchString;
+        return View(await students.ToListAsync());
     }
 
     // GET: /Student/Details/5

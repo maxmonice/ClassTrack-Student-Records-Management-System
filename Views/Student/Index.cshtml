@@ -11,12 +11,34 @@
     <a asp-action="Create" class="btn btn-primary">+ Add Student</a>
 </div>
 
+@{
+    var searchString = ViewData["SearchString"] as string;
+}
+
+<form asp-action="Index" method="get" class="row g-2 mb-3">
+    <div class="col-12 col-md">
+        <input type="text" name="searchString" value="@searchString" class="form-control"
+               placeholder="Search by ID, first name or surname" aria-label="Search students" />
+    </div>
+    <div class="col-12 col-md-auto d-flex gap-2">
+        <button type="submit" class="btn btn-primary">Search</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">Clear</a>
+    </div>
+</form>
+
 <div class="card ct-card">
     @if (!Model.Any())
     {
         <div class="card-body text-center text-muted py-5">
-            <p class="mb-3">No students registered yet.</p>
-            <a asp-action="Create" class="btn btn-outline-primary">Add the first student</a>
+            @if (string.IsNullOrEmpty(searchString))
+            {
+                <p class="mb-3">No students registered yet.</p>
+                <a asp-action="Create" class="btn btn-outline-primary">Add the first student</a>
+            }
+            else
+            {
+                <p class="mb-0">No students match "@searchString".</p>
+            }
         </div>
     }
     else
