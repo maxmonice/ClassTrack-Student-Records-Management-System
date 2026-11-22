@@ -1,0 +1,23 @@
+@model Student
+@{
+    ViewData["Title"] = "Student Details";
+}
+
+<h1 class="page-title mb-4">Student Details</h1>
+
+<div class="card ct-card ct-narrow">
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Id)</dt>
+            <dd class="col-sm-8">@Model.Id</dd>
+            <dt class="col-sm-4">@Html.DisplayNameFor(m => m.FirstName)</dt>
+            <dd class="col-sm-8">@Model.FirstName</dd>
+            <dt class="col-sm-4">@Html.DisplayNameFor(m => m.Surname)</dt>
+            <dd class="col-sm-8 mb-0">@Model.Surname</dd>
+        </dl>
+    </div>
+    <div class="card-footer bg-white d-flex gap-2">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+        <a asp-action="Index" class="btn btn-outline-secondary">Back to list</a>
+    </div>
+</div>

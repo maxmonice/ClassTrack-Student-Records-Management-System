@@ -29,3 +29,17 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+/* ClassTrack theme: navy + indigo */
+:root { --ct-navy: #1e2a4a; --ct-accent: #3f51b5; }
+body { background-color: #f4f6fb; }
+.ct-navbar { background-color: var(--ct-navy); }
+.ct-navbar .nav-link { color: rgba(255, 255, 255, .75); }
+.ct-navbar .nav-link:hover { color: #fff; }
+.page-title { color: var(--ct-navy); font-size: 1.75rem; font-weight: 600; }
+.ct-card { border: 0; box-shadow: 0 1px 4px rgba(30, 42, 74, .12); }
+.ct-narrow { max-width: 560px; }
+.btn-primary { background-color: var(--ct-accent); border-color: var(--ct-accent); }
+.btn-primary:hover { background-color: #34449a; border-color: #34449a; }
+.btn-outline-primary { color: var(--ct-accent); border-color: var(--ct-accent); }
+.btn-outline-primary:hover { background-color: var(--ct-accent); border-color: var(--ct-accent); }
+.table-hover > tbody > tr:hover > * { background-color: #eef1fb; }
